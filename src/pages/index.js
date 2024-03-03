@@ -53,11 +53,13 @@ export default function Home() {
                 <section className="px-3">
                   <h1>Welcome to QuickAid App</h1>
                   <p className="lead">
-                    Your go-to solution for instant ambulance dispatch and first
-                    aid guidance. Seamlessly request emergency assistance and
-                    track nearby ambulances in real-time. With QuickApp, access
-                    life-saving resources and expert guidance at your
-                    fingertips.
+                    Welcome to our Ambulance and First Aid Service System app!
+                    Whether you're in need of urgent medical assistance or
+                    looking to provide aid to someone in distress, our platform
+                    is here to help. With easy access to emergency services and
+                    resources, we're dedicated to ensuring the safety and
+                    well-being of our users. Sign up or log in now to access our
+                    suite of life-saving features.
                   </p>
                 </section>
               </div>
