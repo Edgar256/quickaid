@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-import { useRouter } from 'next/router';
+
 
 export default function index() {
   const router = useRouter();

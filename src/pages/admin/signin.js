@@ -1,12 +1,51 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
+import { Spinner } from 'react-bootstrap';
 
 export default function index() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+
+      if (!email) return setEmailError('Please enter valid email');
+      setEmailError('');
+
+      if (!password) return setPasswordError('Please enter your password');
+      if (password.length < 6)
+        return setPasswordError('Password must be at least 6 characters');
+      setPasswordError('');
+
+      setIsLoading(true);
+
+      setTimeout(() => {
+        setIsLoading(false);
+        console.log({ email, password });
+
+        setEmail('');
+        setPassword('');
+        setTimeout(() => {
+          router.push('/admin/dashboard');
+        }, 1200);
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <main className="form-signin w-100 m-auto">
-        <form>
+        <form onSubmit={handleSubmit}>
           <Link href="/" className="d-flex">
             <Image
               src="/images/logo.png"
@@ -23,24 +62,37 @@ export default function index() {
             <input
               type="email"
               className="form-control"
-              id="floatingInput"
               placeholder="name@example.com"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <label htmlFor="floatingInput">Email address</label>
+            {emailError && (
+              <div className="alert alert-danger pt-1">{emailError}</div>
+            )}
           </div>
-          <div className="form-floating">
+          <div className="form-floating my-2">
             <input
               type="password"
               className="form-control"
-              id="floatingPassword"
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <label htmlFor="floatingPassword">Password</label>
+            {passwordError && (
+              <div className="alert alert-danger pt-1">{passwordError}</div>
+            )}
           </div>
 
-          <button className="btn btn-primary w-100 py-2" type="submit">
-            Sign in
-          </button>
+          {isLoading ? (
+            <div className="d-flex">
+              <Spinner className="text-warning mx-auto" />
+            </div>
+          ) : (
+            <button className="btn btn-success w-100 py-2" type="submit">
+              Sign In
+            </button>
+          )}
+
           <div className="mt-3">
             Do not have account <Link href="/admin/signup">Register</Link>
           </div>
