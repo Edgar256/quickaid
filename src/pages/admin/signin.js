@@ -14,6 +14,7 @@ export default function index() {
               width="150"
               height="150"
               className="mx-auto"
+              priority={false}
             />
           </Link>
           <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
@@ -25,7 +26,7 @@ export default function index() {
               id="floatingInput"
               placeholder="name@example.com"
             />
-            <label for="floatingInput">Email address</label>
+            <label htmlFor="floatingInput">Email address</label>
           </div>
           <div className="form-floating">
             <input
@@ -34,7 +35,7 @@ export default function index() {
               id="floatingPassword"
               placeholder="Password"
             />
-            <label for="floatingPassword">Password</label>
+            <label htmlFor="floatingPassword">Password</label>
           </div>
 
           <button className="btn btn-primary w-100 py-2" type="submit">
