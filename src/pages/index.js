@@ -51,12 +51,14 @@ export default function Home() {
                 style={{ minHeight: '100vh' }}
               >
                 <section className="px-3">
-                  <h1>Cover your page.</h1>
+                  <h1>Welcome to QuickAid App</h1>
                   <p className="lead">
-                    Cover is a one-page template for building simple and
-                    beautiful home pages. Download, edit the text, and add your
-                    own fullscreen background photo to make it your own.
-                  </p>                  
+                    Your go-to solution for instant ambulance dispatch and first
+                    aid guidance. Seamlessly request emergency assistance and
+                    track nearby ambulances in real-time. With QuickApp, access
+                    life-saving resources and expert guidance at your
+                    fingertips.
+                  </p>
                 </section>
               </div>
             </div>
