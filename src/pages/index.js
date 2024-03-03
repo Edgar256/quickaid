@@ -15,60 +15,52 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>       
+      <main>
+        <div className="cover-container-main">
+          <div className="black-overlay">
+            <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+              <header className="mb-auto">
+                <div>
+                  <h3 className="float-md-start mb-0">QuickAid</h3>
+                  <nav className="nav nav-masthead justify-content-center float-md-end">
+                    <Link
+                      className="nav-link fw-bold py-1 px-0 active"
+                      aria-current="page"
+                      href="#"
+                    >
+                      Home
+                    </Link>
+                    <Link
+                      className="nav-link fw-bold py-1 px-0"
+                      href="/admin/signin"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      className="nav-link fw-bold py-1 px-0"
+                      href="/admin/signup"
+                    >
+                      Sign Up
+                    </Link>
+                  </nav>
+                </div>
+              </header>
 
-        <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-          <header className="mb-auto">
-            <div>
-              <h3 className="float-md-start mb-0">Cover</h3>
-              <nav className="nav nav-masthead justify-content-center float-md-end">
-                <a
-                  className="nav-link fw-bold py-1 px-0 active"
-                  aria-current="page"
-                  href="#"
-                >
-                  Home
-                </a>
-                <a className="nav-link fw-bold py-1 px-0" href="#">
-                  Features
-                </a>
-                <a className="nav-link fw-bold py-1 px-0" href="#">
-                  Contact
-                </a>
-              </nav>
-            </div>
-          </header>
-
-          <main className="px-3">
-            <h1>Cover your page.</h1>
-            <p className="lead">
-              Cover is a one-page template for building simple and beautiful
-              home pages. Download, edit the text, and add your own fullscreen
-              background photo to make it your own.
-            </p>
-            <p className="lead">
-              <Link
-                href="/admin/signup"
-                className="btn btn-lg btn-light fw-bold border-white bg-white"
+              <div
+                className="d-flex justify-content-center align-items-center text-center text-white"
+                style={{ minHeight: '100vh' }}
               >
-                Sign Up
-              </Link>
-            </p>
-          </main>
-
-          <footer className="mt-auto text-white-50">
-            <p>
-              Cover template for{' '}
-              <a href="https://getbootstrap.com/" className="text-white">
-                Bootstrap
-              </a>
-              , by{' '}
-              <a href="https://twitter.com/mdo" className="text-white">
-                @mdo
-              </a>
-              .
-            </p>
-          </footer>
+                <section className="px-3">
+                  <h1>Cover your page.</h1>
+                  <p className="lead">
+                    Cover is a one-page template for building simple and
+                    beautiful home pages. Download, edit the text, and add your
+                    own fullscreen background photo to make it your own.
+                  </p>                  
+                </section>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </>
