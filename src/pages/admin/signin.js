@@ -15,7 +15,7 @@ export default function index() {
           /> */}
           <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
 
-          <div className="form-floating">
+          <div className="form-floating my-2">
             <input
               type="email"
               className="form-control"

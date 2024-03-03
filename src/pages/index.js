@@ -21,7 +21,7 @@ export default function Home() {
             <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
               <header className="mb-auto">
                 <div>
-                  <h3 className="float-md-start mb-0">QuickAid</h3>
+                  <h3 className="float-md-start mb-0 text-white">QuickAid</h3>
                   <nav className="nav nav-masthead justify-content-center float-md-end">
                     <Link
                       className="nav-link fw-bold py-1 px-0 active"
@@ -53,13 +53,15 @@ export default function Home() {
                 <section className="px-3">
                   <h1>Welcome to QuickAid App</h1>
                   <p className="lead">
-                    Welcome to our Ambulance and First Aid Service System app!
-                    Whether you're in need of urgent medical assistance or
-                    looking to provide aid to someone in distress, our platform
-                    is here to help. With easy access to emergency services and
-                    resources, we're dedicated to ensuring the safety and
-                    well-being of our users. Sign up or log in now to access our
-                    suite of life-saving features.
+                    Introducing QuickAid, your one-stop app for swift medical
+                    assistance in Kampala. Now, getting the help you need in a
+                    medical emergency is just a tap away.
+                  </p>
+                  <p className="lead">
+                    QuickAid connects you directly with Nsambya Hospital's
+                    advanced ambulance and first-aid services. This innovative
+                    app streamlines the response process, ensuring you receive
+                    prompt and professional care when you need it most.
                   </p>
                 </section>
               </div>
