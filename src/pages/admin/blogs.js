@@ -4,12 +4,7 @@ import Header from "../components/Header";
 import axiosClient from "../../../axiosClient";
 import { Spinner } from "react-bootstrap";
 import moment from "moment";
-import dynamic from "next/dynamic";
 import parser from "html-react-parser";
-
-var Editor = dynamic(() => import("../components/Editor"), {
-  ssr: false,
-});
 
 export default function index() {
   const [blogs, setBlogs] = useState([]);
