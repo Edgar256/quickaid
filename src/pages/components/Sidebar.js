@@ -98,7 +98,6 @@ export default function index() {
           </ul>
 
           <hr className="my-2" />
-
           <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
             <span>MODULE MANAGEMENT</span>
             <a
@@ -109,7 +108,6 @@ export default function index() {
               <i className="bi bi-plus-circle-fill"></i>
             </a>
           </h6>
-
           <ul className="nav flex-column mb-auto">
             <li className="nav-item">
               <Link
@@ -118,6 +116,38 @@ export default function index() {
               >
                 <i className="bi bi-folder-symlink-fill"></i>
                 FirstAid Requests
+              </Link>
+            </li>
+            {/* <li className="nav-item">
+              <Link
+                className="nav-link d-flex align-items-center gap-2"
+                href="/admin/blogs"
+              >
+                <i className="bi bi-book-half"></i>
+                Blogs
+              </Link>
+            </li> */}
+          </ul>
+          <hr className="my-2" />
+
+          <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+            <span>BLOG MANAGEMENT</span>
+            <a
+              className="link-secondary"
+              href="#"
+              aria-label="Add a new report"
+            >
+              <i className="bi bi-plus-circle-fill"></i>
+            </a>
+          </h6>
+          <ul className="nav flex-column mb-auto">
+            <li className="nav-item">
+              <Link
+                className="nav-link d-flex align-items-center gap-2"
+                href="/admin/manageBlogs"
+              >
+                <i className="bi bi-folder-symlink-fill"></i>
+               Manage Blogs
               </Link>
             </li>
             <li className="nav-item">
