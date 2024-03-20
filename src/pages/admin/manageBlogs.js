@@ -7,9 +7,9 @@ import moment from "moment";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
-var Editor = dynamic(() => import("../components/Editor"), {
-  ssr: false,
-});
+// var Editor = dynamic(() => import("../components/Editor"), {
+//   ssr: false,
+// });
 
 export default function index() {
   const router = useRouter();
@@ -221,7 +221,7 @@ export default function index() {
               <div className="p-1 col-6">
                 <div className=" my-0 ">
                   <label htmlFor="floatingInput">Enter Title</label>
-                  <Editor
+                  {/* <Editor
                     sendDataInput={(data) => {
                       setContent(data);
                     }}
@@ -230,7 +230,7 @@ export default function index() {
                     colSpan={10}
                     cols={30}
                     rows={35}
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="p-1 col-2">
