@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Spinner } from "react-bootstrap";
+import axiosClient from "../../../axiosClient";
 
 export default function index() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function index() {
   const [confirmPassword, setconfirmPassword] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e) => {
     try {
@@ -37,18 +39,26 @@ export default function index() {
 
       setIsLoading(true);
 
-      setTimeout(() => {
-        setIsLoading(false);
-        console.log({ name, email, password });
-        setName("");
-        setEmail("");
-        setPassword("");
-        setTimeout(() => {
-          router.push("/admin/signin");
-        }, 1200);
-      }, 1000);
+      const payload = { name, email, password };
+
+      console.log(payload);
+
+      axiosClient
+        .post("/api/admins/signup", payload)
+        .then((response) => {
+          setSuccessMessage("Admin account successfully created");
+          setIsLoading(false);
+          setTimeout(() => {
+            return router.push("/admin/signin");
+          }, 3000);
+        })
+        .catch((err) => {
+          setError(err?.response?.data?.error);
+          return setIsLoading(false);
+        });
     } catch (error) {
       console.log(error);
+      return
     }
   };
 
@@ -75,9 +85,7 @@ export default function index() {
               onChange={(e) => setName(e.target.value)}
             />
             <label htmlFor="floatingInput">Full Names</label>
-            {nameError && (
-              <div className="alert alert-danger">{nameError}</div>
-            )}
+            {nameError && <div className="alert alert-danger">{nameError}</div>}
           </div>
 
           <div className="form-floating my-2">
@@ -113,11 +121,14 @@ export default function index() {
             />
             <label htmlFor="floatingPassword">Confirm Password</label>
             {confirmPasswordError && (
-              <div className="alert alert-danger">
-                {confirmPasswordError}
-              </div>
+              <div className="alert alert-danger">{confirmPasswordError}</div>
             )}
           </div>
+          {successMessage && (
+            <div className="alert alert-success text-center">
+              {successMessage}
+            </div>
+          )}
           {isLoading ? (
             <div className="d-flex">
               <Spinner className="text-warning mx-auto" />
