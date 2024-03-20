@@ -18,4 +18,25 @@ model Admin {
     isActivated              Boolean   @default(true)
     createdAt                DateTime  @default(now())
     updatedAt                DateTime  @default(now()) @updatedAt
+    blogs                    Blog[]
+}
+
+model Blog {
+    id         String       @id @default(auto()) @map("_id") @db.ObjectId
+    title      String
+    content    String
+    author     Admin        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    authorId   String       @db.ObjectId
+    createdAt  DateTime     @default(now())
+    updatedAt  DateTime     @default(now()) @updatedAt
+    categoryId String       @db.ObjectId
+    category   BlogCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model BlogCategory {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    name      String
+    blogs     Blog[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
 }

@@ -4,6 +4,7 @@ import { getTokenFromHeaders } from "../../../../utils/getTokenFromHeaders";
 export default async function handler(req, res) {
   try {
     if (req.method === "POST") {
+       
       const decodedToken = getTokenFromHeaders(req.headers);
       if (!decodedToken) {
         return res.status(403).json({ error: "Forbidden: Token has expired" });
@@ -28,6 +29,7 @@ export default async function handler(req, res) {
       const admin = await prisma.admin.findUnique({
         where: { id },
       });
+      console.log({admin})
 
       // Check if admin exists
       if (!admin) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../../axiosClient";
 import { useRouter } from "next/router";
+import { Spinner } from "react-bootstrap";
 
 export default function Header() {
   const router = useRouter();
@@ -42,9 +43,13 @@ export default function Header() {
         className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white"
         href="#"
       >
-        Super Admin Dashboard
+        Admin Dashboard
       </a>
-      <p className="text-white m-0 p-2">Hey {user?.name}</p>
+      {isLoading ? (
+        <Spinner className="text-warming" />
+      ) : (
+        <p className="text-white m-0 p-2">Hey {user?.name}</p>
+      )}
 
       <ul className="navbar-nav flex-row d-md-none">
         <li className="nav-item text-nowrap">
