@@ -114,7 +114,7 @@ export default function index() {
                 className="nav-link d-flex align-items-center gap-2"
                 href="/admin/requests"
               >
-                <i className="bi bi-folder-symlink-fill"></i>
+                <i className="bi bi-hospital-fill"></i>
                 FirstAid Requests
               </Link>
             </li>
@@ -146,7 +146,7 @@ export default function index() {
                 className="nav-link d-flex align-items-center gap-2"
                 href="/admin/manageBlogs"
               >
-                <i className="bi bi-folder-symlink-fill"></i>
+                <i className="bi bi-substack"></i>
                Manage Blogs
               </Link>
             </li>
