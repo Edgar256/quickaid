@@ -4,12 +4,7 @@ import Header from "../components/Header";
 import axiosClient from "../../../axiosClient";
 import { Spinner } from "react-bootstrap";
 import moment from "moment";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-
-var Editor = dynamic(() => import("../components/Editor"), {
-  ssr: false,
-});
 
 export default function index() {
   const router = useRouter();
@@ -221,15 +216,11 @@ export default function index() {
               <div className="p-1 col-6">
                 <div className=" my-0 ">
                   <label htmlFor="floatingInput">Enter Title</label>
-                  <Editor
-                    sendDataInput={(data) => {
-                      setContent(data);
-                    }}
+                  <textarea
+                    rows={10}
+                    type="text"
                     className="form-control"
-                    style={{ minHeight: 600 }}
-                    colSpan={10}
-                    cols={30}
-                    rows={35}
+                    onChange={(e) => setContent(e.target.value)}
                   />
                 </div>
               </div>
