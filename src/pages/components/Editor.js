@@ -35,7 +35,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 //   }
 // }
 
-const Editor = ({ value, sendDataInput }) => {
+const Editor = ({ sendDataInput }) => {
   return (
     <CKEditor
       editor={ClassicEditor}
