@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function index() {
   return (
@@ -24,14 +25,14 @@ export default function index() {
         <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
           <ul className="nav flex-column">
             <li className="nav-item">
-              <a
+              <Link
                 className="nav-link d-flex align-items-center gap-2 active"
                 aria-current="page"
-                href="#"
+                href="/admin/dashboard"
               >
                 <i className="bi bi-speedometer"></i>
                 Dashboard
-              </a>
+              </Link>
             </li>
           </ul>
 
@@ -49,22 +50,31 @@ export default function index() {
           </h6>
           <ul className="nav flex-column mb-auto">
             <li className="nav-item">
-              <a className="nav-link d-flex align-items-center gap-2" href="#">
+              <Link
+                className="nav-link d-flex align-items-center gap-2"
+                href="/admin/users"
+              >
                 <i class="bi bi-people-fill"></i>
                 Users
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link d-flex align-items-center gap-2" href="#">
+              <Link
+                className="nav-link d-flex align-items-center gap-2"
+                href="/admin/staff"
+              >
                 <i class="bi bi-person-bounding-box"></i>
                 Staff
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link d-flex align-items-center gap-2" href="#">
+              <Link
+                className="nav-link d-flex align-items-center gap-2"
+                href="/admin/admins"
+              >
                 <i class="bi bi-person-circle"></i>
-                Admin
-              </a>
+                Admins
+              </Link>
             </li>
           </ul>
 
@@ -83,25 +93,34 @@ export default function index() {
 
           <ul className="nav flex-column mb-auto">
             <li className="nav-item">
-              <a className="nav-link d-flex align-items-center gap-2" href="#">
+              <Link
+                className="nav-link d-flex align-items-center gap-2"
+                href="/admin/requests"
+              >
                 <i class="bi bi-folder-symlink-fill"></i>
                 FirstAid Requests
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link d-flex align-items-center gap-2" href="#">
+              <Link
+                className="nav-link d-flex align-items-center gap-2"
+                href="/admin/blogs"
+              >
                 <i class="bi bi-book-half"></i>
                 Blogs
-              </a>
+              </Link>
             </li>
           </ul>
           <hr className="my-2" />
           <ul className="nav flex-column mb-auto">
             <li className="nav-item">
-              <a className="nav-link d-flex align-items-center gap-2" href="#">
+              <Link
+                className="nav-link d-flex align-items-center gap-2"
+                href="/admin/logout"
+              >
                 <i class="bi bi-box-arrow-left"></i>
                 SignOut
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
