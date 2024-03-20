@@ -29,7 +29,6 @@ export default async function handler(req, res) {
       const admin = await prisma.admin.findUnique({
         where: { id },
       });
-      console.log({admin})
 
       // Check if admin exists
       if (!admin) {
@@ -47,7 +46,6 @@ export default async function handler(req, res) {
       });
     }
   } catch (error) {
-    console.error("An error occurred:", error);
     return res.status(500).json({
       message: null,
       status: 500,

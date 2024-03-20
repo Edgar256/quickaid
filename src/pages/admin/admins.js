@@ -77,7 +77,7 @@ export default function index() {
                       })}
                     </>
                   ) : (
-                    <></>
+                    <>No Admins found</>
                   )}
                 </tbody>
               </table>
