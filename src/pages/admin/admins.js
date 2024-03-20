@@ -39,6 +39,10 @@ export default function index() {
               <h3 className="h2">Admins</h3>
             </div>
 
+            <div>
+              {error && <div className="alert alert-danger">{error}</div>}
+            </div>
+
             <div className="table-responsive small">
               <table className="table table-striped table-sm">
                 <thead>
