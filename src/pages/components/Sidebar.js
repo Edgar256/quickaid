@@ -116,7 +116,7 @@ export default function index() {
             <li className="nav-item">
               <Link
                 className="nav-link d-flex align-items-center gap-2"
-                href="/admin/logout"
+                href="/"
               >
                 <i class="bi bi-box-arrow-left"></i>
                 SignOut

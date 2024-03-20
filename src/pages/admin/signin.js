@@ -1,29 +1,29 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import { Spinner } from 'react-bootstrap';
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import { Spinner } from "react-bootstrap";
 
 export default function index() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
 
-      if (!email) return setEmailError('Please enter valid email');
-      setEmailError('');
+      if (!email) return setEmailError("Please enter valid email");
+      setEmailError("");
 
-      if (!password) return setPasswordError('Please enter your password');
+      if (!password) return setPasswordError("Please enter your password");
       if (password.length < 6)
-        return setPasswordError('Password must be at least 6 characters');
-      setPasswordError('');
+        return setPasswordError("Password must be at least 6 characters");
+      setPasswordError("");
 
       setIsLoading(true);
 
@@ -31,10 +31,10 @@ export default function index() {
         setIsLoading(false);
         console.log({ email, password });
 
-        setEmail('');
-        setPassword('');
+        setEmail("");
+        setPassword("");
         setTimeout(() => {
-          router.push('/admin/dashboard');
+          router.push("/admin/dashboard");
         }, 1200);
       }, 1000);
     } catch (error) {
@@ -67,7 +67,7 @@ export default function index() {
             />
             <label htmlFor="floatingInput">Email address</label>
             {emailError && (
-              <div className="alert alert-danger pt-1">{emailError}</div>
+              <div className="alert alert-danger">{emailError}</div>
             )}
           </div>
           <div className="form-floating my-2">
@@ -79,7 +79,7 @@ export default function index() {
             />
             <label htmlFor="floatingPassword">Password</label>
             {passwordError && (
-              <div className="alert alert-danger pt-1">{passwordError}</div>
+              <div className="alert alert-danger">{passwordError}</div>
             )}
           </div>
 
@@ -93,10 +93,14 @@ export default function index() {
             </button>
           )}
 
-          <div className="mt-3">
-            Do not have account <Link href="/admin/signup">Register</Link>
+          <div className="my-3 text-center">
+            Do not have account <Link href="/admin/signup">Register Here</Link>
           </div>
-          <p className="mt-5 mb-3 text-body-secondary">&copy; 2024–2025</p>
+          <p className="mt-5 mb-3 text-body-secondary text-center">
+            <small>
+              <i>&copy; 2024–2025</i>
+            </small>
+          </p>
         </form>
       </main>
     </>
