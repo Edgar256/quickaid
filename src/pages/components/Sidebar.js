@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { Spinner } from "react-bootstrap";
 
 export default function index() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      localStorage.clear();
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        router.push("/");
+        setTimeout(() => {
+          router.reload();
+        }, 1000);
+      }, 500);
+    } catch (error) {}
+  };
+
   return (
     <div className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary text-dark">
       <div
@@ -45,7 +64,7 @@ export default function index() {
               href="#"
               aria-label="Add a new report"
             >
-              <i class="bi bi-plus-circle-fill"></i>
+              <i className="bi bi-plus-circle-fill"></i>
             </a>
           </h6>
           <ul className="nav flex-column mb-auto">
@@ -54,7 +73,7 @@ export default function index() {
                 className="nav-link d-flex align-items-center gap-2"
                 href="/admin/users"
               >
-                <i class="bi bi-people-fill"></i>
+                <i className="bi bi-people-fill"></i>
                 Users
               </Link>
             </li>
@@ -63,7 +82,7 @@ export default function index() {
                 className="nav-link d-flex align-items-center gap-2"
                 href="/admin/staff"
               >
-                <i class="bi bi-person-bounding-box"></i>
+                <i className="bi bi-person-bounding-box"></i>
                 Staff
               </Link>
             </li>
@@ -72,7 +91,7 @@ export default function index() {
                 className="nav-link d-flex align-items-center gap-2"
                 href="/admin/admins"
               >
-                <i class="bi bi-person-circle"></i>
+                <i className="bi bi-person-circle"></i>
                 Admins
               </Link>
             </li>
@@ -87,7 +106,7 @@ export default function index() {
               href="#"
               aria-label="Add a new report"
             >
-              <i class="bi bi-plus-circle-fill"></i>
+              <i className="bi bi-plus-circle-fill"></i>
             </a>
           </h6>
 
@@ -97,7 +116,7 @@ export default function index() {
                 className="nav-link d-flex align-items-center gap-2"
                 href="/admin/requests"
               >
-                <i class="bi bi-folder-symlink-fill"></i>
+                <i className="bi bi-folder-symlink-fill"></i>
                 FirstAid Requests
               </Link>
             </li>
@@ -106,23 +125,25 @@ export default function index() {
                 className="nav-link d-flex align-items-center gap-2"
                 href="/admin/blogs"
               >
-                <i class="bi bi-book-half"></i>
+                <i className="bi bi-book-half"></i>
                 Blogs
               </Link>
             </li>
           </ul>
           <hr className="my-2" />
-          <ul className="nav flex-column mb-auto">
-            <li className="nav-item">
-              <Link
-                className="nav-link d-flex align-items-center gap-2"
-                href="/"
+          <div className="nav flex-column mb-auto px-2">
+            {isLoading ? (
+              <Spinner className="text-warning mx-auto" />
+            ) : (
+              <button
+                className="d-flex align-items-center gap-2 btn btn-danger"
+                onClick={handleLogout}
               >
-                <i class="bi bi-box-arrow-left"></i>
+                <i className="bi bi-box-arrow-left"></i>
                 SignOut
-              </Link>
-            </li>
-          </ul>
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

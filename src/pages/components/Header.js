@@ -1,6 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axiosClient from "../../../axiosClient";
+import { useRouter } from "next/router";
 
 export default function Header() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(true);
+
+  const getAdmin = async () => {
+    try {
+      axiosClient
+        .post(`/api/admins/getAdmin`)
+        .then((res) => {
+          setUser(res.data.message);
+          return setIsLoading(false);
+        })
+        .catch((error) => {
+          router.push("/admin/signin");
+          return;
+        });
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const id = window.localStorage.getItem("ID");
+      if (id) {
+        getAdmin();
+      } else {
+        return router.push("/admin/signin");
+      }
+    }
+  }, []);
+
   return (
     <header
       className="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow"
@@ -10,8 +42,9 @@ export default function Header() {
         className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white"
         href="#"
       >
-        Admin Dashboard
+        Super Admin Dashboard
       </a>
+      <p className="text-white m-0 p-2">Hey {user?.name}</p>
 
       <ul className="navbar-nav flex-row d-md-none">
         <li className="nav-item text-nowrap">
@@ -24,7 +57,7 @@ export default function Header() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <i class="bi bi-list text-white"></i>
+            <i className="bi bi-list text-white"></i>
           </button>
         </li>
       </ul>

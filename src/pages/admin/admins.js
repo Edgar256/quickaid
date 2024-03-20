@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import axiosClient from "../../../axiosClient";
+import moment from "moment";
+import { Spinner } from "react-bootstrap";
 
 export default function index() {
+  const [admins, setAdmins] = useState([]);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  const getAllAdmins = async () => {
+    try {
+      axiosClient.get("/api/admins/getAllAdmins").then((res) => {
+        setAdmins([...res.data.message]);
+        return setIsLoading(false);
+      });
+    } catch (error) {
+      setError("Error loading admins data");
+      return setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAllAdmins();
+  }, []);
+
   return (
     <main>
       <Header />
@@ -21,24 +44,37 @@ export default function index() {
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Address</th>
+                    <th scope="col">Names</th>
                     <th scope="col">Date Created</th>
                     <th scope="col">Date Updated</th>
+                    <th scope="col">Activation Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1,001</td>
-                    <td>random</td>
-                    <td>data</td>
-                    <td>placeholder</td>
-                    <td>text</td>
-                    <td>placeholder</td>
-                    <td>text</td>
-                  </tr>
+                  {isLoading && (
+                    <tr>
+                      <td colSpan={5}>
+                        <Spinner className="text-warning text-center mx-auto" />
+                      </td>
+                    </tr>
+                  )}
+                  {admins.length > 0 ? (
+                    <>
+                      {admins.map((elem, index) => {
+                        return (
+                          <tr key={elem.id}>
+                            <td>{index + 1}</td>
+                            <td>{elem.name}</td>
+                            <td>{moment(elem.createdAt).format("LLLL")}</td>
+                            <td>{moment(elem.updatedAt).format("LLLL")}</td>
+                            <td>{elem.isActivated ? "ACTIVE" : "DEACTIVE"}</td>
+                          </tr>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </tbody>
               </table>
             </div>
