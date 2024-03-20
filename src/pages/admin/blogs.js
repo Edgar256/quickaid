@@ -52,7 +52,7 @@ export default function index() {
                     <>
                       {blogs.map((elem) => {
                         return (
-                          <div className="col-6 p-2" key={elem.id}>
+                          <div className="col-lg-6 col-12 p-2" key={elem.id}>
                             <div className="bg-light p-2 rounded shadow-sm">
                               <h4>{elem.title}</h4>
                               <p className="my-0">

@@ -187,7 +187,7 @@ export default function index() {
               </div>
             )}
             <form className="d-flex flex-wrap" onSubmit={handleCreateBlog}>
-              <div className="p-1 col-2">
+              <div className="p-1 col-lg-2 col-12">
                 <div className=" my-0 ">
                   <label htmlFor="floatingInput">Enter Title</label>
                   <input
@@ -197,7 +197,7 @@ export default function index() {
                   />
                 </div>
               </div>
-              <div className="p-1 col-2">
+              <div className="p-1 col-lg-2 col-12">
                 <div className=" my-0 ">
                   <label htmlFor="floatingInput">Select Category</label>
                   <select
@@ -213,9 +213,9 @@ export default function index() {
                   </select>
                 </div>
               </div>
-              <div className="p-1 col-6">
+              <div className="p-1 col-lg-6 col-12">
                 <div className=" my-0 ">
-                  <label htmlFor="floatingInput">Enter Title</label>
+                  <label htmlFor="floatingInput">Enter Content</label>
                   <textarea
                     rows={10}
                     type="text"
@@ -224,7 +224,7 @@ export default function index() {
                   />
                 </div>
               </div>
-              <div className="p-1 col-2">
+              <div className="p-1 col-lg-2 col-12">
                 {isLoading ? (
                   <Spinner className="text-warning" />
                 ) : (
