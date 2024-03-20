@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { Spinner } from "react-bootstrap";
+import axiosClient from "../../../axiosClient";
 
 export default function index() {
   const router = useRouter();
@@ -11,7 +12,9 @@ export default function index() {
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e) => {
     try {
@@ -27,16 +30,27 @@ export default function index() {
 
       setIsLoading(true);
 
-      setTimeout(() => {
-        setIsLoading(false);
-        console.log({ email, password });
+      const payload = { email, password };
 
-        setEmail("");
-        setPassword("");
-        setTimeout(() => {
-          router.push("/admin/dashboard");
-        }, 1200);
-      }, 1000);
+      axiosClient
+        .post("/api/admins/signin", payload)
+        .then(async (response) => {
+          setIsLoading(false);
+          setSuccessMessage("Login successful");
+          const { data } = response;
+          await localStorage.setItem("ACCESS_TOKEN", data.token);
+          await localStorage.setItem("ID", data.id);
+          setTimeout(() => {
+            setIsLoading(false);
+            router.push("/admin/dashboard");
+          }, 1000);
+        })
+        .catch((err) => {
+          console.log({ err });
+          setError(err?.response?.data?.error);
+          return setIsLoading(false);
+        });
+      return;
     } catch (error) {
       console.log(error);
     }
@@ -82,6 +96,15 @@ export default function index() {
               <div className="alert alert-danger">{passwordError}</div>
             )}
           </div>
+
+          {successMessage && (
+            <div className="alert alert-success text-center">
+              {successMessage}
+            </div>
+          )}
+          {error && (
+            <div className="alert alert-success text-center">{error}</div>
+          )}
 
           {isLoading ? (
             <div className="d-flex">
