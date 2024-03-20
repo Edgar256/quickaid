@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-const Editor = ({sendDataInput, props}) => {
+const Editor = ({sendDataInput}) => {
   let [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -13,7 +13,6 @@ const Editor = ({sendDataInput, props}) => {
     return (
       <CKEditor
         editor={ClassicEditor}
-        data={props}
         onReady={(editor) => {
           // You can store the "editor" and use when it is needed.
           // console.log("Editor is ready to use!", editor);
