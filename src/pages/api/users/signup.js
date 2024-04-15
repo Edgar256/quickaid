@@ -13,6 +13,8 @@ export default async function handler(req, res) {
         where: { email: email },
       });
 
+      console.log(existingUser)
+
       if (existingUser) {
         return res
           .status(400)
