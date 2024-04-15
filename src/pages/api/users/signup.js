@@ -12,6 +12,7 @@ export default async function handler(req, res) {
       const existingUser = await prisma.user.findUnique({
         where: { email: email },
       });
+      console.log(existingUser)
 
       if (existingUser) {
         return res
@@ -22,11 +23,19 @@ export default async function handler(req, res) {
       // Hash the user's password before storing it
       const hashedPassword = await bcrypt.hash(data.password, 10);
 
+      // console.log({
+      //   name: data.name,
+      //   email: email,
+      //   phone: data.phone,
+      //   password: hashedPassword,
+      // });
+
       // Create a new user in the database
       await prisma.user.create({
         data: {
           name: data.name,
           email: email,
+          phone: data.phone,
           password: hashedPassword,
         },
       });

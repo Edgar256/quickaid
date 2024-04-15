@@ -24,9 +24,24 @@ model Admin {
 model User {
     id                       String    @id @default(auto()) @map("_id") @db.ObjectId
     name                     String
+    phone                    String
     email                    String    @unique
     password                 String
     role                     String    @default("USER")
+    passwordResetToken       String?
+    passwordResetTokenExpiry DateTime?
+    isActivated              Boolean   @default(true)
+    createdAt                DateTime  @default(now())
+    updatedAt                DateTime  @default(now()) @updatedAt
+}
+
+model Staff {
+    id                       String    @id @default(auto()) @map("_id") @db.ObjectId
+    name                     String
+    phone                    String
+    email                    String    @unique
+    password                 String
+    role                     String    @default("STAFF")
     passwordResetToken       String?
     passwordResetTokenExpiry DateTime?
     isActivated              Boolean   @default(true)
