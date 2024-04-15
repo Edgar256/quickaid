@@ -21,6 +21,7 @@ export default async function handler(req, res) {
 
       // Fetch all admin details from the database
       const users = await prisma.user.findMany();
+      // console.log({users})
 
       // Return the list of admins
       return res.status(200).json({ message: users, error: null });

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { Spinner } from "react-bootstrap";
+import axiosClient from "../../../axiosClient";
+import moment from "moment";
 
 export default function index() {
   const [users, setUsers] = useState([]);
@@ -45,15 +47,15 @@ export default function index() {
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
-                    <th scope="col">Address</th>
                     <th scope="col">Date Created</th>
                     <th scope="col">Date Updated</th>
+                    <th scope="col">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {isLoading && (
                     <tr>
-                      <td colSpan={5}>
+                      <td colSpan={7}>
                         <Spinner className="text-warning text-center mx-auto" />
                       </td>
                     </tr>
@@ -64,7 +66,8 @@ export default function index() {
                         return (
                           <tr key={elem.id}>
                             <td>{index + 1}</td>
-                            <td>{elem.name}</td>
+                            <td>{elem.name}</td> <td>{elem.email}</td>{" "}
+                            <td>{elem.phone}</td>
                             <td>{moment(elem.createdAt).format("LLLL")}</td>
                             <td>{moment(elem.updatedAt).format("LLLL")}</td>
                             <td>{elem.isActivated ? "ACTIVE" : "DEACTIVE"}</td>
@@ -73,7 +76,9 @@ export default function index() {
                       })}
                     </>
                   ) : (
-                    <>No Patients found</>
+                    <tr>
+                      <td>No Patients found</td>
+                    </tr>
                   )}
                 </tbody>
               </table>
