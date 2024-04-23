@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       // });
 
       // Create a new user in the database
-      await prisma.user.create({
+      const user = await prisma.user.create({
         data: {
           name: data.name,
           email: email,
@@ -40,6 +40,8 @@ export default async function handler(req, res) {
           password: hashedPassword,
         },
       });
+
+      console.log({user })
 
       return res.status(200).json({
         message: "User registration successful",

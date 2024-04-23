@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       const isPasswordValid = await bcrypt.compare(password, user.password);
 
       if (!isPasswordValid) {
-        return res.status(401).json({ error: "Invalid password" });
+        return res.status(401).json({ error: "Invalid password", status: 401 });
       }
 
       // Generate JWT token
