@@ -3,7 +3,7 @@ import { getTokenFromHeaders } from "../../../../utils/getTokenFromHeaders";
 
 export default async function handler(req, res) {
   try {
-    if (req.method === "POST") {
+    if (req.method === "GET") {
       const decodedToken = getTokenFromHeaders(req.headers);
       if (!decodedToken) {
         return res.status(403).json({ error: "Forbidden: Token has expired" });
