@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import { Spinner } from "react-bootstrap";
+import axiosClient from "../../../axiosClient";
+import moment from "moment";
 
 export default function index() {
+  const [requests, setRequests] = useState([]);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  const getAllRequests = async () => {
+    try {
+      axiosClient.get("/api/admins/getAllAmbulanceOrders").then((res) => {
+        setRequests([...res.data.message]);
+        return setIsLoading(false);
+      });
+    } catch (error) {
+      console.log({ error });
+      setError("Error loading admins data");
+      return setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAllRequests();
+  }, []);
+
   return (
     <main>
       <Header />
@@ -21,24 +45,47 @@ export default function index() {
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Date Created</th>
-                    <th scope="col">Date Updated</th>
+                    <th scope="col">Patient Name</th>
+                    <th scope="col">Patient Phone</th>
+                    <th scope="col">Patient Email</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Health Condition</th>
+                    <th scope="col">Notes</th>
+                    <th scope="col">Date Requested</th>
+                    <th scope="col">Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1,001</td>
-                    <td>random</td>
-                    <td>data</td>
-                    <td>placeholder</td>
-                    <td>text</td>
-                    <td>placeholder</td>
-                    <td>text</td>
-                  </tr>
+                  {isLoading && (
+                    <tr>
+                      <td colSpan={7}>
+                        <Spinner className="text-warning text-center mx-auto" />
+                      </td>
+                    </tr>
+                  )}
+                  {requests.length > 0 ? (
+                    <>
+                      {requests.map((elem, index) => {
+                        return (
+                          <tr key={elem.id}>
+                            <td>{index + 1}</td>
+                            <td>{elem?.user?.name}</td> 
+                            <td>{elem?.user?.email}</td>{" "}
+                            <td>{elem?.user?.phone}</td>
+                            <td>{elem?.location}</td>
+                            <td>{elem?.healthCondition}</td>
+                            <td>{elem?.notes}</td>
+                            <td>{moment(elem.createdAt).format("LLLL")}</td>
+                            <td>{elem.isActivated ? "ACTIVE" : "DEACTIVE"}</td>
+                          </tr>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <tr>
+                      <td>No Staffs found</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
