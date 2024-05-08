@@ -22,31 +22,33 @@ model Admin {
 }
 
 model User {
-    id                       String    @id @default(auto()) @map("_id") @db.ObjectId
+    id                       String           @id @default(auto()) @map("_id") @db.ObjectId
     name                     String
     phone                    String
-    email                    String    @unique
+    email                    String           @unique
     password                 String
-    role                     String    @default("USER")
+    role                     String           @default("USER")
     passwordResetToken       String?
     passwordResetTokenExpiry DateTime?
-    isActivated              Boolean   @default(true)
-    createdAt                DateTime  @default(now())
-    updatedAt                DateTime  @default(now()) @updatedAt
+    isActivated              Boolean          @default(true)
+    createdAt                DateTime         @default(now())
+    updatedAt                DateTime         @default(now()) @updatedAt
+    AmbulanceOrder           AmbulanceOrder[]
 }
 
 model Staff {
-    id                       String    @id @default(auto()) @map("_id") @db.ObjectId
+    id                       String           @id @default(auto()) @map("_id") @db.ObjectId
     name                     String
     phone                    String
-    email                    String    @unique
+    email                    String           @unique
     password                 String
-    role                     String    @default("STAFF")
+    role                     String           @default("STAFF")
     passwordResetToken       String?
     passwordResetTokenExpiry DateTime?
-    isActivated              Boolean   @default(true)
-    createdAt                DateTime  @default(now())
-    updatedAt                DateTime  @default(now()) @updatedAt
+    isActivated              Boolean          @default(true)
+    createdAt                DateTime         @default(now())
+    updatedAt                DateTime         @default(now()) @updatedAt
+    AmbulanceOrder           AmbulanceOrder[]
 }
 
 model Blog {
@@ -67,4 +69,18 @@ model BlogCategory {
     blogs     Blog[]
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now()) @updatedAt
+}
+
+model AmbulanceOrder {
+    id              String   @id @default(auto()) @map("_id") @db.ObjectId
+    userId          String   @db.ObjectId
+    user            User     @relation(fields: [userId], references: [id])
+    staffId         String?  @db.ObjectId
+    staff           Staff?   @relation(fields: [staffId], references: [id])
+    location        String
+    healthCondition String
+    notes           String?
+    photoUrl        String? // Assuming the photo will be stored as a URL
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @default(now()) @updatedAt
 }
