@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       });
 
       // Return the orders
-      return res.status(200).json({ message: userOrders, error: null });
+      return res.status(200).json({ message: userOrders.reverse(), error: null });
     } else {
       return res.status(405).json({
         message: "Method Not Allowed",
