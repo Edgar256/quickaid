@@ -34,7 +34,7 @@ export default async function handler(req, res) {
           role: user.role,
         },
         process.env.JWT_SECRET,
-        { expiresIn: "2h" } // Set token expiry time in 1h
+        { expiresIn: "8h" } // Set token expiry time in 1h
         // { expiresIn: "2m" } // Set token expiry time in 2m
       );
 
@@ -54,7 +54,6 @@ export default async function handler(req, res) {
       });
     }
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       message: null,
       status: 500,
