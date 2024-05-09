@@ -58,7 +58,7 @@ export default function index() {
                 <tbody>
                   {isLoading && (
                     <tr>
-                      <td colSpan={7}>
+                      <td colSpan={9}>
                         <Spinner className="text-warning text-center mx-auto" />
                       </td>
                     </tr>
