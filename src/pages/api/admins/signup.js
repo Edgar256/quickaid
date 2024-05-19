@@ -22,6 +22,8 @@ export default async function handler(req, res) {
       // Hash the user's password before storing it
       const hashedPassword = await bcrypt.hash(data.password, 10);
 
+      console.log({ name: data.name, email: email, password: hashedPassword });
+
       // Create a new admin in the database
       await prisma.admin.create({
         data: {

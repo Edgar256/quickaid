@@ -5,6 +5,7 @@ export default async function handler(req, res) {
   try {
     // Check if the request method is GET
     if (req.method === "GET") {
+
       // Extract token from headers and validate
       const decodedToken = getTokenFromHeaders(req.headers);
       if (!decodedToken) {

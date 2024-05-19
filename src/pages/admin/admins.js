@@ -13,7 +13,8 @@ export default function index() {
   const getAllAdmins = async () => {
     try {
       axiosClient.get("/api/admins/getAllAdmins").then((res) => {
-        setAdmins([...res.data.message]);
+        const data = [...res.data.message];
+        setAdmins(data.reverse());
         return setIsLoading(false);
       });
     } catch (error) {
