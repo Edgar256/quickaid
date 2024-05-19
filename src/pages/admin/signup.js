@@ -18,6 +18,7 @@ export default function index() {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [error,setError] = useState("")
 
   const handleSubmit = async (e) => {
     try {
@@ -53,7 +54,7 @@ export default function index() {
           }, 3000);
         })
         .catch((err) => {
-          setError(err?.response?.data?.error);
+          setError("Error creating account");
           return setIsLoading(false);
         });
     } catch (error) {
@@ -127,6 +128,11 @@ export default function index() {
           {successMessage && (
             <div className="alert alert-success text-center">
               {successMessage}
+            </div>
+          )}
+           {error && (
+            <div className="alert alert-danger text-center">
+              {error}
             </div>
           )}
           {isLoading ? (
