@@ -22,13 +22,6 @@ export default async function handler(req, res) {
       // Hash the staff's password before storing it
       const hashedPassword = await bcrypt.hash(data.password, 10);
 
-      // console.log({
-      //   name: data.name,
-      //   email: email,
-      //   phone: data.phone,
-      //   password: hashedPassword,
-      // });
-
       // Create a new staff in the database
       const staff = await prisma.staff.create({
         data: {
@@ -40,7 +33,7 @@ export default async function handler(req, res) {
       });
 
       return res.status(201).json({
-        message: "Staff registration successful",
+        message: "Staff registration successful" + staff,
         error: null,
       });
     } else {

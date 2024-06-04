@@ -13,8 +13,6 @@ export default async function handler(req, res) {
         where: { email: email },
       });
 
-      console.log(existingUser)
-
       if (existingUser) {
         return res
           .status(400)
@@ -23,14 +21,6 @@ export default async function handler(req, res) {
 
       // Hash the user's password before storing it
       const hashedPassword = await bcrypt.hash(data.password, 10);
-
-
-      // console.log({
-      //   name: data.name,
-      //   email: email,
-      //   phone: data.phone,
-      //   password: hashedPassword,
-      // });
 
       // Create a new user in the database
       const user = await prisma.user.create({
@@ -42,9 +32,7 @@ export default async function handler(req, res) {
         },
       });
 
-      console.log({user })
-
-      return res.status(200).json({
+      return res.status(201).json({
         message: "User registration successful",
         status: 200,
         error: null,
