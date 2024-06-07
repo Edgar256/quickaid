@@ -71,6 +71,14 @@ model BlogCategory {
     updatedAt DateTime @default(now()) @updatedAt
 }
 
+// Define the enum for status
+enum Status {
+  PENDING
+  ACCEPTED
+  CANCELLED
+  COMPLETED
+}
+
 model AmbulanceOrder {
     id              String   @id @default(auto()) @map("_id") @db.ObjectId
     userId          String   @db.ObjectId
@@ -79,6 +87,7 @@ model AmbulanceOrder {
     staff           Staff?   @relation(fields: [staffId], references: [id])
     location        String
     healthCondition String
+    status          Status   @default(PENDING)
     notes           String?
     photoUrl        String? // Assuming the photo will be stored as a URL
     createdAt       DateTime @default(now())

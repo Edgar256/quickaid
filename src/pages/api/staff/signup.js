@@ -14,6 +14,7 @@ export default async function handler(req, res) {
       });
 
       if (existingUser) {
+        console.log({existingUser})
         return res
           .status(400)
           .json({ error: "Staff with this email already exists" });
@@ -45,6 +46,7 @@ export default async function handler(req, res) {
       });
     }
   } catch (error) {
+    console.log({error})
     return res.status(500).json({
       message: null,
       status: 500,
