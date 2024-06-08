@@ -11,16 +11,16 @@ export default async function handler(req, res) {
       }
 
       // Check if the role is STAFF
-      const { role, id } = decodedToken;
+      const { role,id } = decodedToken;
       if (role !== "STAFF") {
         return res
           .status(403)
           .json({ error: "Forbidden: User is not authorized" });
       }
 
-      // Fetch all ambulance orders with status PENDING
+      // Fetch all ambulance orders with status COMPLETED
       const orders = await prisma.ambulanceOrder.findMany({
-        where: { status: "ACCEPTED", staffId: id },
+        where: { status: "COMPLETED", staffId: id },
         orderBy: { createdAt: "desc" }, // Order by createdAt descending
         include: { user: true }, // Include user data
       });

@@ -76,7 +76,7 @@ export default function index() {
                             <td>{elem?.healthCondition}</td>
                             <td>{elem?.notes}</td>
                             <td>{moment(elem.createdAt).format("LLLL")}</td>
-                            <td>{elem.isActivated ? "ACTIVE" : "DEACTIVE"}</td>
+                            <td>{elem.status}</td>
                           </tr>
                         );
                       })}
