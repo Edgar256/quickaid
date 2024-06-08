@@ -22,6 +22,7 @@ export default async function handler(req, res) {
       const orders = await prisma.ambulanceOrder.findMany({
         where: { status: "ACCEPTED" },
         orderBy: { createdAt: "desc" }, // Order by createdAt descending
+        include: { user: true }, // Include user data
       });
 
       // Return the list of ambulanceOrder

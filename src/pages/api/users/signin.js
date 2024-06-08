@@ -34,8 +34,7 @@ export default async function handler(req, res) {
           role: user.role,
         },
         process.env.JWT_SECRET,
-        { expiresIn: "8h" } // Set token expiry time in 1h
-        // { expiresIn: "2m" } // Set token expiry time in 2m
+        { expiresIn: "30d" } // Set token expiry time in 30days
       );
 
       // Password is valid, return success with token
