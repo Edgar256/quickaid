@@ -21,7 +21,10 @@ export default async function handler(req, res) {
 
       // Fetch all admin details from the database
       const ambulanceOrders = await prisma.ambulanceOrder.findMany({
-        include: { user: { select: { phone: true, name: true, email: true } } },
+        include: {
+          user: { select: { phone: true, name: true, email: true } },
+          staff: { select: { phone: true, name: true, email: true } },
+        },
       });
 
       // Return the list of admins

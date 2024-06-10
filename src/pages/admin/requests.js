@@ -51,6 +51,9 @@ export default function index() {
                     <th scope="col">Location</th>
                     <th scope="col">Health Condition</th>
                     <th scope="col">Notes</th>
+                    <th scope="col">Staff Name</th>
+                    <th scope="col">Staff Phone</th>
+                    <th scope="col">Staff Email</th>
                     <th scope="col">Date Requested</th>
                     <th scope="col">Status</th>
                   </tr>
@@ -75,6 +78,9 @@ export default function index() {
                             <td>{elem?.location}</td>
                             <td>{elem?.healthCondition}</td>
                             <td>{elem?.notes}</td>
+                            <td>{elem?.staff?.name}</td> 
+                            <td>{elem?.staff?.email}</td>{" "}
+                            <td>{elem?.staff?.phone}</td>
                             <td>{moment(elem.createdAt).format("LLLL")}</td>
                             <td>{elem.status}</td>
                           </tr>

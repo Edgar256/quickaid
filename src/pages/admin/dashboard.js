@@ -1,10 +1,61 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { Doughnut, Line, Bar } from "react-chartjs-2";
 import "chart.js/auto";
+import axiosClient from "../../../axiosClient";
 
 export default function index() {
+  const [patients, setPatients] = useState([]);
+  const [staff, setStaff] = useState([]);
+  const [requests, setRequests] = useState([]);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  const getAllRequests = async () => {
+    try {
+      axiosClient.get("/api/admins/getAllAmbulanceOrders").then((res) => {
+        setRequests([...res.data.message]);
+        return setIsLoading(false);
+      });
+    } catch (error) {
+      console.log({ error });
+      setError("Error loading admins data");
+      return setIsLoading(false);
+    }
+  };
+
+  const getAllPatients = async () => {
+    try {
+      axiosClient.get("/api/admins/getAllUsers").then((res) => {
+        setPatients([...res.data.message]);
+        return setIsLoading(false);
+      });
+    } catch (error) {
+      setError("Error loading admins data");
+      return setIsLoading(false);
+    }
+  };
+
+  const getAllStaff = async () => {
+    try {
+      axiosClient.get("/api/admins/getAllStaffs").then((res) => {
+        setStaff([...res.data.message]);
+        return setIsLoading(false);
+      });
+    } catch (error) {
+      console.log({ error });
+      setError("Error loading admins data");
+      return setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAllPatients();
+    getAllRequests();
+    getAllStaff();
+  }, []);
+
   const options = {
     maintainAspectRatio: false, // Set to false to allow manual adjustment of aspectRatio
     aspectRatio: 100, // Set the desired aspect ratio (width:height)
@@ -18,6 +69,20 @@ export default function index() {
       },
     },
     // barThickness: 150,
+  };
+
+  const countElementsByMonth = (data) => {
+    const monthlyCounts = Array(12).fill(0); // Initialize array to store counts for each month
+
+    data.forEach((elem) => {
+      const createdAt = new Date(elem.createdAt);
+      const month = createdAt.getMonth(); // Get the month index (0-11)
+
+      // Increment count for the corresponding month
+      monthlyCounts[month]++;
+    });
+
+    return monthlyCounts;
   };
 
   return (
@@ -34,10 +99,9 @@ export default function index() {
             </div>
 
             <div className="row p-1">
-              <div className="col-md-6 col-12 p-1">
+              <div className="col-md-4 col-12 p-1">
                 <div className="p-2 shadow-sm rounded border">
-                  <h5>Users</h5>
-                  <h6 className="text-success">+12%</h6>
+                  <h5>First Aid Requests({requests.length})</h5>
                   <div className="m-2" style={{ height: "400px" }}>
                     <Line
                       datasetIdKey="id"
@@ -59,8 +123,8 @@ export default function index() {
                         datasets: [
                           {
                             id: 1,
-                            label: "",
-                            data: [5, 6, 7, 20, 2, 3, 4, 0, 12, 2, 34, 15],
+                            label: "First Aid Requests",
+                            data: countElementsByMonth(requests),
                           },
                         ],
                       }}
@@ -72,33 +136,76 @@ export default function index() {
                   </div>
                 </div>
               </div>
-              <div className="col-md-6 col-12 p-1">
+              <div className="col-md-4 col-12 p-1">
                 <div className="p-2 shadow-sm rounded border">
-                  <h5>FirstAid Requests</h5>
-                  <h6 className="text-success">+12%</h6>
+                  <h5>Patients({patients.length})</h5>
                   <div className="m-2" style={{ height: "400px" }}>
-                    <Bar
+                    <Line
+                      datasetIdKey="id"
                       data={{
                         labels: [
-                          "January",
-                          "February",
-                          "March",
-                          "April",
+                          "Jan",
+                          "Feb",
+                          "Mar",
+                          "Apr",
                           "May",
-                          "June",
-                          "July",
+                          "Jun",
+                          "Jul",
+                          "Aug",
+                          "Sep",
+                          "Oct",
+                          "Nov",
+                          "Dec",
                         ],
                         datasets: [
                           {
-                            label: "Sales",
-                            data: [65, 59, 80, 81, 56, 55, 40],
-                            backgroundColor: "rgba(255, 99, 132, 0.2)",
-                            borderColor: "rgba(255, 99, 132, 1)",
-                            borderWidth: 1,
+                            id: 1,
+                            label: "Patients",
+                            data: countElementsByMonth(patients),
                           },
                         ],
                       }}
-                      options={options}
+                      options={{
+                        maintainAspectRatio: false, // Set to false to allow manual adjustment of aspectRatio
+                        aspectRatio: 100, // Set the desired aspect ratio (width:height)
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-12 p-1">
+                <div className="p-2 shadow-sm rounded border">
+                  <h5>Medical Staff({staff.length})</h5>
+                  <div className="m-2" style={{ height: "400px" }}>
+                    <Line
+                      datasetIdKey="id"
+                      data={{
+                        labels: [
+                          "Jan",
+                          "Feb",
+                          "Mar",
+                          "Apr",
+                          "May",
+                          "Jun",
+                          "Jul",
+                          "Aug",
+                          "Sep",
+                          "Oct",
+                          "Nov",
+                          "Dec",
+                        ],
+                        datasets: [
+                          {
+                            id: 1,
+                            label: "Medical Staff",
+                            data: countElementsByMonth(staff),
+                          },
+                        ],
+                      }}
+                      options={{
+                        maintainAspectRatio: false, // Set to false to allow manual adjustment of aspectRatio
+                        aspectRatio: 100, // Set the desired aspect ratio (width:height)
+                      }}
                     />
                   </div>
                 </div>
