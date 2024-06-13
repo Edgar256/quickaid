@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         return res.status(403).json({ error: "Forbidden: Token has expired" });
       }
 
-      // Check if the role is ADMIN
+      // Check if the role is USER
       const { role } = decodedToken;
       if (role !== "USER") {
         return res
