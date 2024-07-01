@@ -1,60 +1,47 @@
 import prisma from "../../../../lib/prisma";
-import cloudinary from "cloudinary";
-import formidable from "formidable";
-import fs from "fs";
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-const parseForm = (req) => {
-  return new Promise((resolve, reject) => {
-    const form = new formidable.IncomingForm();
-    form.parse(req, (err, fields, files) => {
-      if (err) reject(err);
-      resolve({ fields, files });
-    });
-  });
-};
+import { getTokenFromHeaders } from "../../../../utils/getTokenFromHeaders";
 
 export default async function handler(req, res) {
-    console.log({req:req.files})
   try {
     if (req.method === "POST") {
       try {
-        const { fields, files } = await parseForm(req);
-
-        console.log({ fields, files })
-
-        const { name, phone, medicalHistory } = fields;
-        let photo = null;
-
-        if (files.file) {
-          const filePath = files.file.filepath;
-          try {
-            const result = await cloudinary.v2.uploader.upload(filePath, {
-              folder: "quickaid",
-            });
-            photo = result.secure_url;
-            fs.unlinkSync(filePath);
-          } catch (error) {
-            return res
-              .status(500)
-              .json({ error: "Error uploading to Cloudinary" });
-          }
+        const decodedToken = getTokenFromHeaders(req.headers);
+        if (!decodedToken) {
+          return res
+            .status(403)
+            .json({ error: "Forbidden: Token has expired" });
         }
+
+        // Check if the role is USER
+        const { role } = decodedToken;
+        if (role !== "USER") {
+          return res
+            .status(403)
+            .json({ error: "Forbidden: User is not authorized" });
+        }
+
+        const id = decodedToken?.id;
+
+        // Validate if id is provided
+        if (!id) {
+          return res.status(400).json({ error: "User id is required" });
+        }
+
+        // Fetch user details from the database
+        const user = await prisma.user.findUnique({
+          where: { id },
+        });
+
+        // Check if user exists
+        if (!user) {
+          return res.status(404).json({ error: "User not found" });
+        }
+
+        const { name, phone, photo, medicalHistory } = req.body;
 
         try {
           const user = await prisma.user.update({
-            where: { id: fields.id },
+            where: { id },
             data: {
               name,
               phone,
