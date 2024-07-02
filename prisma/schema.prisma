@@ -92,7 +92,7 @@ model AmbulanceOrder {
     healthCondition String
     status          Status   @default(PENDING)
     notes           String?
-    rl              String? // Assuming the photo will be stored as a URL
+    photoUrl        String? // Assuming the photo will be stored as a URL
     createdAt       DateTime @default(now())
     updatedAt       DateTime @default(now()) @updatedAt
 }
