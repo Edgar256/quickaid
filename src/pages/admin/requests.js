@@ -61,7 +61,7 @@ export default function index() {
                 <tbody>
                   {isLoading && (
                     <tr>
-                      <td colSpan={9}>
+                      <td colSpan={12}>
                         <Spinner className="text-warning text-center mx-auto" />
                       </td>
                     </tr>
@@ -72,17 +72,29 @@ export default function index() {
                         return (
                           <tr key={elem.id}>
                             <td>{index + 1}</td>
-                            <td>{elem?.user?.name}</td> 
+                            <td>{elem?.user?.name}</td>
                             <td>{elem?.user?.email}</td>{" "}
                             <td>{elem?.user?.phone}</td>
                             <td>{elem?.location}</td>
                             <td>{elem?.healthCondition}</td>
                             <td>{elem?.notes}</td>
-                            <td>{elem?.staff?.name}</td> 
+                            <td>{elem?.staff?.name}</td>
                             <td>{elem?.staff?.email}</td>{" "}
                             <td>{elem?.staff?.phone}</td>
                             <td>{moment(elem.createdAt).format("LLLL")}</td>
-                            <td>{elem.status}</td>
+                            <td>
+                              <div
+                                className={
+                                  elem.status === "COMPLETED"
+                                    ? "badge bg-success"
+                                    : elem.status === "ACCEPTED"
+                                    ? "badge bg-warning"
+                                    : "badge bg-secondary"
+                                }
+                              >
+                                {elem.status}
+                              </div>
+                            </td>
                           </tr>
                         );
                       })}
