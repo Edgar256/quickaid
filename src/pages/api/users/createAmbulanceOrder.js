@@ -4,6 +4,7 @@ import { getTokenFromHeaders } from "../../../../utils/getTokenFromHeaders";
 export default async function handler(req, res) {
   try {
     if (req.method === "POST") {
+      
       // Extract token from headers
       const decodedToken = getTokenFromHeaders(req.headers);
       if (!decodedToken) {
