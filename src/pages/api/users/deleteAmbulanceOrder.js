@@ -25,7 +25,7 @@ export default async function handler(req, res) {
           .status(400)
           .json({ error: "Bad Request: Order ID is required" });
       }
-
+      
       // Find the order to ensure it belongs to the user and has a status that allows deletion
       const order = await prisma.ambulanceOrder.findUnique({
         where: { id: orderId },
@@ -36,11 +36,9 @@ export default async function handler(req, res) {
       }
 
       if (order.userId !== id) {
-        return res
-          .status(403)
-          .json({
-            error: "Forbidden: You are not authorized to delete this order",
-          });
+        return res.status(403).json({
+          error: "Forbidden: You are not authorized to delete this order",
+        });
       }
 
       // Proceed to delete the order
