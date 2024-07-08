@@ -50,6 +50,7 @@ export default function index() {
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Names</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Date Created</th>
                     <th scope="col">Date Updated</th>
                     <th scope="col">Activation Status</th>
@@ -70,6 +71,7 @@ export default function index() {
                           <tr key={elem.id}>
                             <td>{index + 1}</td>
                             <td>{elem.name}</td>
+                            <td>{elem.email}</td>
                             <td>{moment(elem.createdAt).format("LLLL")}</td>
                             <td>{moment(elem.updatedAt).format("LLLL")}</td>
                             <td>{elem.isActivated ? "ACTIVE" : "DEACTIVE"}</td>
@@ -78,7 +80,9 @@ export default function index() {
                       })}
                     </>
                   ) : (
-                    <>No Admins found</>
+                    <tr>
+                      <td>No Admins found</td>
+                    </tr>
                   )}
                 </tbody>
               </table>
