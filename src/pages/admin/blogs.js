@@ -35,6 +35,7 @@ export default function index() {
       });
     } catch (error) {
       setError("Error loading blogs data");
+      setIsProcessing(false);
       return setIsLoading(false);
     }
   };
