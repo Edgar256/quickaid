@@ -9,6 +9,7 @@ export default function index() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const getAllUsers = async () => {
     try {
@@ -26,6 +27,26 @@ export default function index() {
   useEffect(() => {
     getAllUsers();
   }, []);
+
+  const deleteStaff = async (id) => {
+    try {
+      setIsProcessing(true);
+      axiosClient
+        .delete(`/api/admins/deleteStaff?id=${id}`)
+        .then((res) => {
+          setIsProcessing(false);
+          alert("Staff has been successfully deleted")
+          axiosClient.get("/api/admins/getAllStaffs").then((res) => {
+            setUsers([...res.data.message]);
+            return setIsLoading(false);
+          });
+        });
+    } catch (error) {
+      setError("Error loading users data");
+      setIsProcessing(false);
+      return setIsLoading(false);
+    }
+  };
 
   return (
     <main>
@@ -51,12 +72,13 @@ export default function index() {
                     <th scope="col">Date Created</th>
                     <th scope="col">Date Updated</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {isLoading && (
                     <tr>
-                      <td colSpan={7}>
+                      <td colSpan={8}>
                         <Spinner className="text-warning text-center mx-auto" />
                       </td>
                     </tr>
@@ -72,6 +94,18 @@ export default function index() {
                             <td>{moment(elem.createdAt).format("LLLL")}</td>
                             <td>{moment(elem.updatedAt).format("LLLL")}</td>
                             <td>{elem.isActivated ? "ACTIVE" : "DEACTIVE"}</td>
+                            <td>
+                              {isProcessing ? (
+                                <Spinner className="text-warning text-center mx-auto" />
+                              ) : (
+                                <button
+                                  className="btn btn-danger py-0"
+                                  onClick={() => deleteStaff(elem.id)}
+                                >
+                                  <small>Delete Staff</small>
+                                </button>
+                              )}
+                            </td>
                           </tr>
                         );
                       })}
